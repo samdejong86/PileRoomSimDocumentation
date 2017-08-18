@@ -34,6 +34,22 @@
 \section{Introduction}
 
 \subsection{AmBe neutron source}
+	The University of Victoria has a 241-AmBe neutron source, which produces neutrons using the following reaction \cite{barschall1983neutron}:
+
+\begin{subequations}
+\begin{align}
+		{^{241}_{95}\mathrm{Am}\rightarrow~^{237}_{93}\mathrm{Np} + ^4_2\mathrm{He} + \gamma}\\
+		{^9_4\mathrm{Be}+^4_2\mathrm{He}\rightarrow~^{12}_6\mathrm{C}+^1_0\mathrm{n}+\gamma}
+\end{align}
+\end{subequations}
+with an activity of 168~GBq (measured at 185~GBq in 1966). The energy spectrum of an AmBe source can be found in Fig~\ref{fig:AmBeSpec}. The configuration of the University of Victoria's AmBe source can be found in~\cite{hargrove}. The neutron rates from five different AmBe sources is measured in \cite{lebreton2007experimental}. From this, it is determined that an AmBe source produces 6.08$\pm$0.17$\times10^{4}$~neutrons/GBq. For the 168~GBq source, this corresponds to 1.02$\pm$0.03$\times10^{7}$~neutrons/s.
+
+\begin{figure}
+	\centerfloat
+		\includegraphics[trim={0 0 0 0.75cm},clip, width=\textwidth]{images/AmBe_NeutronSpectrum.pdf}
+	\caption[Energy spectrum of neutrons from AmBe source]{Energy spectrum of neutrons from AmBe source~\cite{AmBeSpec}.}
+	\label{fig:AmBeSpec}
+\end{figure}
 
 
 \subsection{Helium-3 Tube}
@@ -145,7 +161,9 @@ diffusionFlux	&	a vector containing the number of neutrons which 	\\
 
 
 
-
+\clearpage
+	\bibliographystyle{plain}
+	\bibliography{References}
 
 
 
