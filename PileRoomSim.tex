@@ -1,0 +1,153 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{subfigure}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[percent]{overpic}
+\usepackage{xcolor,varwidth}
+
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \textwidth
+  \rightskip\leftskip
+  \parfillskip \z@skip}
+\makeatother
+
+
+\title{Simulation of an AmBe source and Helium-3 Thermal Neutron Detectors\\ \vspace{2 mm} {\large Using GEANT4}}
+\author{Samuel de Jong \\
+	Department of Physics and Astronomy \\
+	University of Victoria  \\
+	}
+
+\date{\today}
+
+
+\begin{document}
+
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{AmBe neutron source}
+
+
+\subsection{Helium-3 Tube}
+
+
+
+\section{Geometry}
+
+	The centre of the geometry is defined to be the centre of the graphite cube. All other positions are taken relative to this point. The geometry of the pile room is read into the simulation from four files:
+\begin{figure}[htb]
+	\centerfloat
+	\includegraphics[width=\columnwidth]{images/Room}
+	\caption{Scale drawing of the pile room}	
+	\label{fig:room}
+\end{figure}
+
+
+	\paragraph{Room.xml} contains geometry of the room. The dimensions of the room, the material the walls are composed of, the thickness of the walls, and the position of the centre of the room relative to the graphite are all contained in this file. The default dimensions are taken from fig~\ref{fig:room}, the default 
+material is G4\_CONCRETE, GEANT4's implementation of concrete, and the thickness is assumed to be 20cm. The door to the room and the small alcove on the left of fig~\ref{fig:room} have been omitted from the room description.
+
+\begin{figure}[htb]
+	\centerfloat
+	\includegraphics[width=\columnwidth]{images/Rods}
+	\caption{Photograph of the graphite pile showing rods}	
+	\label{fig:graphiteRods}
+\end{figure}
+
+	\paragraph{Graphite.xml} contains the geometry of the graphite. The graphite pile is composed of layers of criss-crossed rods of graphite, as shown in fig~\ref{fig:graphiteRods}. 
+
+	For simplicity, only the dimensions of one rod are defined in the xml file, as well as the number of layers in the pile. The default length of a rod is 92.5~cm with width of 5.285~cm. Each layer is two rods long and 35 wide, as shown in fig~\ref{fig:layers}, with each layer rotated 90$^{\circ}$ with respect to the previous. The pile is composed of 35 layers. The length and width if each rod is reduced by a Gaussian distributed random number in order to simulate the imperfect stacking and variation in rod dimensions of the actual pile. 
+
+	The material of the pile is G4\_GRAPHITE with a small boron impurity. The density and the purity of the graphite (in \%) are specified in the xml file.
+
+
+\begin{figure}[hbt]
+	\centerfloat
+	\subfigure[layer 1]{
+		\includegraphics[width=0.5\columnwidth]{images/layer1}
+	}
+	\subfigure[layer 2]{
+		\includegraphics[width=0.5\columnwidth]{images/layer2}
+	}
+	\caption{Arrangement of rods in alternating layers}	
+	\label{fig:layers}
+\end{figure}
+
+
+	\paragraph{HE3TUBE.xml} contains the geometry of the helium-3 tubes. The dimensions of the tubes are based on fig~\ref{fig:tubeSchematic}. The xml file can contain several tubes, each of which is implemented in the simulation.
+
+
+
+	\paragraph{misc.xml} contains the geometry of any other object, such as a polyethylene shield. Both boxes and cylinders can be implemented. The position of the object can be with respect to the origin (the centre of the graphite) or with respect to one of the helium-3 tubes. The xml file can contan several objects, all of which will be implemented in the simulation.
+
+
+\begin{figure}[htb]
+	\centerfloat
+	\includegraphics[width=\columnwidth]{images/GESchematic.pdf}
+	\caption{Schematic of helium-3 tube}	
+	\label{fig:tubeSchematic}
+\end{figure}
+
+
+\section{Output Ntuples}
+
+	A root file containing two ntuples is produced by the simulation:
+
+	\paragraph{geometry} contains the geometry of the room, graphite cube, helium-3 tubes, and the miscellaneous objects. This ntuple has only one entry.
+
+	\paragraph{PileRoomSim} contains the simulation results. By default, only events containing a neutron hit in a helium-3 tube are saved, but it is possible to save all events. The branches in this ntuple summarized in table~\ref{tab:branches}
+
+	
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{ rl }
+		Branch	&	Description	\\	\hline	\hline
+Ekin\_n\_PostGraphite	&	Kinetic energy of a neutron after leaving the graphite	\\		
+Etot\_n\_initial	&	Initial energy of neutron	\\		
+TotalEnergyDeposited	&	Total energy deposited by a proton and tritium	\\		
+leftWall	&	1 if the neutron left the wall of the room	\\		
+he3TubeXPos	&	X position of tube containing a neutron hit	\\		
+he3TubeYPos	&	Y position of tube containing a neutron hit	\\		
+he3TubeZPos	&	Z position of tube containing a neutron hit	\\		
+EDEPinHe3	&	a vector of the energy deposits in the helium-3 tubes	\\		
+PIDinHe3	&	a vector of the PID of particles causing energy deposits in 	\\		
+	&	the helium-3 tubes	\\		
+neutronHits	&	The channel number of a tube where a hit occured	\\		
+diffusionRadius	&	a vector containing 100 radius values between 30 and 70~cm	\\		
+diffusionFlux	&	a vector containing the number of neutrons which 	\\		
+	&	cross a sphere defined by each entry in diffusionRadius	\\	\hline	
+
+	
+	\end{tabular}
+	\caption{Branches in the PileRoomSim ntuple}
+	\label{tab:branches}
+\end{table}	
+
+
+
+
+\section{Determination of Boron Contamination}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
