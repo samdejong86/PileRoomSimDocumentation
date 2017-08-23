@@ -46,7 +46,7 @@ with an activity of 168~GBq (measured at 185~GBq in 1966). The energy spectrum o
 
 \begin{figure}
 	\centerfloat
-		\includegraphics[trim={0 0 0 0.75cm},clip, width=\textwidth]{images/AmBe_NeutronSpectrum.pdf}
+		\includegraphics[trim={0 0 0 0.75cm},clip, width=\columnwidth]{images/AmBe_NeutronSpectrum.pdf}
 	\caption[Energy spectrum of neutrons from AmBe source]{Energy spectrum of neutrons from AmBe source~\cite{AmBeSpec}.}
 	\label{fig:AmBeSpec}
 \end{figure}
@@ -54,12 +54,36 @@ with an activity of 168~GBq (measured at 185~GBq in 1966). The energy spectrum o
 
 \subsection{Helium-3 Tube}
 
+\begin{figure}
+	\centerfloat
+		\includegraphics[width=\columnwidth]{images/he3tubePhoto}
+	\caption[Helium-3 tube]{Helium-3 tube}
+	\label{fig:he3photo}
+\end{figure}
+
+
+When a thermal neutron (with an energy of 0.025 eV) passes through the active area of the detector, it may be captured by a $^3$He atom~\cite{Oed200462}:
+
+\begin{equation}
+		{^{3}_{2}\mathrm{He}+^{1}_{0}\mathrm{n}\rightarrow~^{3}_{1}\mathrm{H}+^{1}_{1}H+764~\mathrm{keV}}
+\end{equation}
+
+The cross section for this reaction decreases as the energy of the neutron increases, as shown in Fig~\ref{fig:neutCross}. The $^3$H and proton ionize the gas in the tubes. This ionization produces a signal on a sense wire in the centre of the tube.
+
+\begin{figure}
+	\centerfloat
+		\includegraphics[width=\textwidth]{images/neutron_cross_section}
+	\caption[Cross section of neutron capture by helium-3 as a function of neutron energy]{Cross section of neutron capture by helium-3 as a function of neutron energy. The vertical black line corresponds to upper range of the energy of thermal neutrons~\cite{BNL}.}
+	\label{fig:neutCross}
+\end{figure}
+
 
 
 \section{Geometry}
 
 	The centre of the geometry is defined to be the centre of the graphite cube. All other positions are taken relative to this point. The geometry of the pile room is read into the simulation from four files:
-\begin{figure}[htb]
+
+\begin{figure}
 	\centerfloat
 	\includegraphics[width=\columnwidth]{images/Room}
 	\caption{Scale drawing of the pile room}	
@@ -67,10 +91,18 @@ with an activity of 168~GBq (measured at 185~GBq in 1966). The energy spectrum o
 \end{figure}
 
 
+\begin{figure}
+	\centerfloat
+	\includegraphics[width=\columnwidth]{images/10Events}
+	\caption{Geometry as implemented in GEANT4. Yellow lines indicate the trajectory of a neutron event.}	
+	\label{fig:tenEvents}
+\end{figure}
+
+
 	\paragraph{Room.xml} contains geometry of the room. The dimensions of the room, the material the walls are composed of, the thickness of the walls, and the position of the centre of the room relative to the graphite are all contained in this file. The default dimensions are taken from fig~\ref{fig:room}, the default 
 material is G4\_CONCRETE, GEANT4's implementation of concrete, and the thickness is assumed to be 20cm. The door to the room and the small alcove on the left of fig~\ref{fig:room} have been omitted from the room description.
 
-\begin{figure}[htb]
+\begin{figure}
 	\centerfloat
 	\includegraphics[width=\columnwidth]{images/Rods}
 	\caption{Photograph of the graphite pile showing rods}	
@@ -84,7 +116,7 @@ material is G4\_CONCRETE, GEANT4's implementation of concrete, and the thickness
 	The material of the pile is G4\_GRAPHITE with a small boron impurity. The density and the purity of the graphite (in \%) are specified in the xml file.
 
 
-\begin{figure}[hbt]
+\begin{figure}
 	\centerfloat
 	\subfigure[layer 1]{
 		\includegraphics[width=0.5\columnwidth]{images/layer1}
@@ -104,7 +136,7 @@ material is G4\_CONCRETE, GEANT4's implementation of concrete, and the thickness
 	\paragraph{misc.xml} contains the geometry of any other object, such as a polyethylene shield. Both boxes and cylinders can be implemented. The position of the object can be with respect to the origin (the centre of the graphite) or with respect to one of the helium-3 tubes. The xml file can contan several objects, all of which will be implemented in the simulation.
 
 
-\begin{figure}[htb]
+\begin{figure}
 	\centerfloat
 	\includegraphics[width=\columnwidth]{images/GESchematic.pdf}
 	\caption{Schematic of helium-3 tube}	
@@ -121,7 +153,7 @@ material is G4\_CONCRETE, GEANT4's implementation of concrete, and the thickness
 	\paragraph{PileRoomSim} contains the simulation results. By default, only events containing a neutron hit in a helium-3 tube are saved, but it is possible to save all events. The branches in this ntuple summarized in table~\ref{tab:branches}
 
 	
-\begin{table}[ht]
+\begin{table}
 	\centering
 	\begin{tabular}{ rl }
 		Branch	&	Description	\\	\hline	\hline
@@ -151,9 +183,73 @@ diffusionFlux	&	a vector containing the number of neutrons which 	\\
 
 \section{Determination of Boron Contamination}
 
+\subsection{Diffusion length approach}
+
+\begin{figure}
+	\centerfloat
+	\includegraphics[width=\columnwidth]{images/BoronEscape}
+	\caption{Fraction of neutrons which escape the graphite as a function of the \% boron}	
+	\label{fig:boronExcape}
+\end{figure}
 
 
 
+	Why??
+
+	In the winter of 2017, and undergraduate student at UVic performed an experiment which measured the diffusion length of thermal neutrons in the graphite of the neutron source. The result of this experiment was a diffusion length of (0.429 $\pm$ 0.008)~m~\cite{undergradExpt}. The accepted value for the diffusion length on graphite is 0.503~m. I hypothesized that the difference between the measured value and the accepted value was due to a small boron impurity on the graphite. 
+
+
+
+
+	I performed a measurement of the diffusion length in the simulated graphite pile. The diffusion length is related to the neutron flux by this relationship:
+\begin{subequations}
+\begin{align}
+		{\phi = A\cdot exp(-\gamma r)}\\
+		{\gamma^2 = 1/L^2}
+\end{align}
+\end{subequations}
+Where $\phi$ is the neutron flux, $r$ is the distance from the source, and $L$ is the diffusion length.
+
+	In the simulation the number of neutrons which enter or exit a shell of radius $r$ was counted, then divided by the surface area of the shell to get the neutron flux:
+\begin{equation}
+	{\phi = \frac{N_{\mathrm{neutrons}}} {4\pi r^2}   }
+\end{equation}
+This was plotted against the distance from the source (see fig~\ref{fig:neutronFlux}) was then fit to 
+\begin{equation}
+	{\phi = p_{0}\cdot exp(p_{1} r) + p_{2}}
+\end{equation}
+so that $L=1/p_{1}$. The range of $r$ was chosen so that a diffusion length of 0.503~m would be produced by pure graphite.
+
+
+
+\begin{figure}
+	\centerfloat
+	\includegraphics[width=\columnwidth]{images/fluxVsR}
+	\caption{Neutron flux as a function of distance from the source for pure graphite}	
+	\label{fig:neutronFlux}
+\end{figure}
+
+
+This process was repeated with boron impurites added (see fig~\ref{fig:neutronDiffLength}). The boron contamination which produced a diffusion length of 0.429~m was 4.63$\times10^{-4}$\% or 4.63 ppm boron.
+
+
+\begin{figure}
+	\centerfloat
+	\includegraphics[width=\columnwidth]{images/DiffusionTuning_100}
+	\caption{Neutron diffusion length as a function of boron contamination. The red line indicates the value of the diffusion length from the undergraduate experiment.}	
+	\label{fig:neutronDiffLength}
+\end{figure}
+
+
+\subsection{Face measurement approach}
+
+
+\begin{figure}
+	\centerfloat
+	\includegraphics[width=\columnwidth]{images/FaceApproach}
+	\caption{Locations of measurement on the face of the graphite.}	
+	\label{fig:FaceImage}
+\end{figure}
 
 
 
