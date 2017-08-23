@@ -183,18 +183,18 @@ diffusionFlux	&	a vector containing the number of neutrons which 	\\
 
 \section{Determination of Boron Contamination}
 
+	Why??
 \subsection{Diffusion length approach}
 
 \begin{figure}
 	\centerfloat
 	\includegraphics[width=\columnwidth]{images/BoronEscape}
-	\caption{Fraction of neutrons which escape the graphite as a function of the \% boron}	
+	\caption{Fraction of neutrons which escape the graphite as a function of boron ppm}	
 	\label{fig:boronExcape}
 \end{figure}
 
 
 
-	Why??
 
 	In the winter of 2017, and undergraduate student at UVic performed an experiment which measured the diffusion length of thermal neutrons in the graphite of the neutron source. The result of this experiment was a diffusion length of (0.429 $\pm$ 0.008)~m~\cite{undergradExpt}. The accepted value for the diffusion length on graphite is 0.503~m. I hypothesized that the difference between the measured value and the accepted value was due to a small boron impurity on the graphite. 
 
@@ -247,10 +247,14 @@ This process was repeated with boron impurites added (see fig~\ref{fig:neutronDi
 \begin{figure}
 	\centerfloat
 	\includegraphics[width=\columnwidth]{images/FaceApproach}
-	\caption{Locations of measurement on the face of the graphite.}	
+	\caption{Locations of measurement on the face of the graphite. The white rectangles are polyethylene blocks to reduce the rate of neutrons from the walls.}	
 	\label{fig:FaceImage}
 \end{figure}
 
+An alternative approach to determining the concentration of boron impurities was to measure the rate at different positions on the face of the graphite cube and compare with the simulated rate at the same positions. The positions measured and simulated can be seen in fig~\ref{fig:FaceImage}. The helium-3 tubes were surrounded with blocks of polyethylene to reduce the rate of neutrons bouncing back from the walls of the room.
+
+
+The ratio of the rate at each position to the rate at the centre position was compared to the same ratio in simulation for a range of boron contamination. To determine the best fit between data and simulation, a $\chi^2$ analysis was used.
 
 
 
