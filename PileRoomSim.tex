@@ -148,7 +148,7 @@ material is G4\_CONCRETE, GEANT4's implementation of concrete, and the thickness
 
 	A root file containing two ntuples is produced by the simulation:
 
-	\paragraph{geometry} contains the geometry of the room, graphite cube, helium-3 tubes, and the miscellaneous objects. This ntuple has only one entry.
+	\paragraph{geometry} contains the geometry of the room, graphite cube, helium-3 tubes, and the miscellaneous objects. This ntuple has only one entry. The values are taken from the xml files used in the simulation.
 
 	\paragraph{PileRoomSim} contains the simulation results. By default, only events containing a neutron hit in a helium-3 tube are saved, but it is possible to save all events. The branches in this ntuple summarized in table~\ref{tab:branches}
 
@@ -156,21 +156,21 @@ material is G4\_CONCRETE, GEANT4's implementation of concrete, and the thickness
 \begin{table}
 	\centering
 	\begin{tabular}{ rl }
-		Branch	&	Description	\\	\hline	\hline
-Ekin\_n\_PostGraphite	&	Kinetic energy of a neutron after leaving the graphite	\\		
-Etot\_n\_initial	&	Initial energy of neutron	\\		
-TotalEnergyDeposited	&	Total energy deposited by a proton and tritium	\\		
-leftWall	&	1 if the neutron left the wall of the room	\\		
-he3TubeXPos	&	X position of tube containing a neutron hit	\\		
-he3TubeYPos	&	Y position of tube containing a neutron hit	\\		
-he3TubeZPos	&	Z position of tube containing a neutron hit	\\		
-EDEPinHe3	&	a vector of the energy deposits in the helium-3 tubes	\\		
-PIDinHe3	&	a vector of the PID of particles causing energy deposits in 	\\		
-	&	the helium-3 tubes	\\		
-neutronHits	&	The channel number of a tube where a hit occured	\\		
-diffusionRadius	&	a vector containing 100 radius values between 30 and 70~cm	\\		
-diffusionFlux	&	a vector containing the number of neutrons which 	\\		
-	&	cross a sphere defined by each entry in diffusionRadius	\\	\hline	
+		Branch	&	Description							\\	\hline	\hline
+Ekin\_n\_PostGraphite	&	Kinetic energy of a neutron after leaving the graphite		\\		
+Etot\_n\_initial	&	Initial energy of neutron					\\		
+TotalEnergyDeposited	&	Total energy deposited by a proton and tritium			\\		
+leftWall		&	1 if the neutron left the wall of the room			\\		
+he3TubeXPos		&	X position of tube containing a neutron hit			\\		
+he3TubeYPos		&	Y position of tube containing a neutron hit			\\		
+he3TubeZPos		&	Z position of tube containing a neutron hit			\\		
+EDEPinHe3		&	a vector of the energy deposits in the helium-3 tubes		\\		
+PIDinHe3		&	a vector of the PID of particles causing energy deposits in 	\\		
+			&	the helium-3 tubes						\\		
+neutronHits		&	The channel number of a tube where a hit occured		\\		
+diffusionRadius		&	a vector containing 100 radius values between 30 and 70~cm	\\		
+diffusionFlux		&	a vector containing the number of neutrons which 		\\		
+			&	cross a sphere defined by each entry in diffusionRadius		\\	\hline	
 
 	
 	\end{tabular}
