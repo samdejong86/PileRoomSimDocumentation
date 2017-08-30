@@ -100,7 +100,7 @@ The cross section for this reaction decreases as the energy of the neutron incre
 
 
 	\paragraph{Room.xml} contains geometry of the room. The dimensions of the room, the material the walls are composed of, the thickness of the walls, and the position of the centre of the room relative to the graphite are all contained in this file. The default dimensions are taken from fig~\ref{fig:room}, the default 
-material is G4\_CONCRETE, GEANT4's implementation of concrete, and the thickness is assumed to be 20cm. The door to the room and the small alcove on the left of fig~\ref{fig:room} have been omitted from the room description.
+material is G4\_CONCRETE, GEANT4's implementation of concrete, and the thickness is assumed to be 20~cm. The door to the room and the small alcove on the left of fig~\ref{fig:room} have been omitted from the room description.
 
 \begin{figure}
 	\centerfloat
@@ -133,7 +133,7 @@ material is G4\_CONCRETE, GEANT4's implementation of concrete, and the thickness
 
 
 
-	\paragraph{misc.xml} contains the geometry of any other object, such as a polyethylene shield. Both boxes and cylinders can be implemented. The position of the object can be with respect to the origin (the centre of the graphite) or with respect to one of the helium-3 tubes. The xml file can contan several objects, all of which will be implemented in the simulation.
+	\paragraph{misc.xml} contains the geometry of any other object, such as a polyethylene shield. Both boxes and cylinders can be implemented. The position of the object can be with respect to the origin (the centre of the graphite) or with respect to one of the helium-3 tubes. The xml file can contain several objects, all of which will be implemented in the simulation.
 
 
 \begin{figure}
@@ -167,7 +167,7 @@ he3TubeZPos		&	Z position of tube containing a neutron hit			\\
 EDEPinHe3		&	a vector of the energy deposits in the helium-3 tubes		\\		
 PIDinHe3		&	a vector of the PID of particles causing energy deposits in 	\\		
 			&	the helium-3 tubes						\\		
-neutronHits		&	The channel number of a tube where a hit occured		\\		
+neutronHits		&	The channel number of a tube where a hit occurred		\\		
 diffusionRadius		&	a vector containing 100 radius values between 30 and 70~cm	\\		
 diffusionFlux		&	a vector containing the number of neutrons which 		\\		
 			&	cross a sphere defined by each entry in diffusionRadius		\\	\hline	
@@ -230,7 +230,7 @@ so that $L=1/p_{1}$. The range of $r$ was chosen so that a diffusion length of 0
 \end{figure}
 
 
-This process was repeated with boron impurites added (see fig~\ref{fig:neutronDiffLength}). The boron contamination which produced a diffusion length of 0.429~m was 4.63$\times10^{-4}$\% or 4.63 ppm boron.
+This process was repeated with boron impurities added (see fig~\ref{fig:neutronDiffLength}). The boron contamination which produced a diffusion length of 0.429~m was 4.63$\times10^{-4}$\% or 4.63 ppm boron.
 
 
 \begin{figure}
@@ -255,7 +255,7 @@ This process was repeated with boron impurites added (see fig~\ref{fig:neutronDi
 An alternative approach to determining the concentration of boron impurities was to measure the rate at different positions on the face of the graphite cube and compare with the simulated rate at the same positions. The positions measured and simulated can be seen in fig~\ref{fig:FaceImage}. The helium-3 tubes were surrounded with blocks of polyethylene to reduce the rate of neutrons bouncing back from the walls of the room.
 
 
-I noticed that the number of neutrons detected in each helium-3 tube was related to the number of neutrons which escape the graphite. This is shown in fig~\ref{fig:TubeRateVsEscape}. Each data vertial set of points is from a simulation sample with a different boron contamination. For each of the positions shown in fig~\ref{fig:FaceImage}, a least squares fit to a line was performed.
+I noticed that the number of neutrons detected in each helium-3 tube was related to the number of neutrons which escape the graphite. This is shown in fig~\ref{fig:TubeRateVsEscape}. Each vertical set of data points is from a simulation sample with a different boron contamination. For each of the positions shown in fig~\ref{fig:FaceImage}, a least squares fit to a linear function was performed.
 
 
 \begin{figure}
@@ -274,22 +274,26 @@ I noticed that the number of neutrons detected in each helium-3 tube was related
 
 
 
-Shown in fig~\ref{fig:EscapeRate} is the neutron escape rate vs boron contamination. Using the fits from fig~\ref{fig:TubeRateVsEscape}, I was able to calculate how many neutrons would be measured at each position for boron concentrations from 10$^{-5}$\% - 10$^{-2.5}$\%. The ratio of the rate in at each position to the rate at the centre position was taken for data and for simulation. For each boron concentration, a $\chi^2$ value was calculated for the difference between data and simulation. This is shown in fig~\ref{fig:ChiSq}. The minimum $\chi^2$ is at a boron concentration of 0.00184\% or 18.4~ppm, which is approximately five times the predicted concentration from the diffusion approach.
+Shown in fig~\ref{fig:EscapeRate} is the neutron escape rate vs boron contamination. Using the fits from fig~\ref{fig:TubeRateVsEscape}, I was able to calculate how many neutrons would be measured at each position for boron concentrations from 10$^{-5}$\% - 10$^{-2.5}$\%. The ratio of the rate in at each position to the rate at the centre position was taken for data and for simulation. For each boron concentration, a $\chi^2$ value was calculated for the difference in between data and simulation:
+\begin{equation}
+	{\chi^2 = \sum_{p=1, p\neq5 }^{p=9}\left[\left (\left.\frac{R_{p}}{R_5}\right\vert_{\mathrm{Data}} -\left.\frac{R_{p}}{R_5}\right\vert_{\mathrm{Sim}} \right )^2/\left(\left.\frac{R_{p}}{R_5}\right\vert_{\mathrm{Data}}\right) \right ]}
+\end{equation}
+This is shown in fig~\ref{fig:ChiSq}. The minimum $\chi^2$ is at a boron concentration of 0.00221\% or 22.1~ppm, which is approximately five times the predicted concentration from the diffusion approach.
 
 
 \begin{figure}
 	\centerfloat
 	\includegraphics[width=\columnwidth]{images/ChiSqVsBoron}
-	\caption{$\chi^2$ of comparison between data and simulation vs boron concentration.}	
+	\caption{$\chi^2$ of comparison between data and simulation vs boron concentration. The green points are from full simulation, blue is using the extrapolation technique described here.}	
 	\label{fig:ChiSq}
 \end{figure}
 
 
 \section{TODO}
 
-determine how GEANT4 mixes: by weight, or by number
+GEANT4 mixes by mass
 
-determine boron contamination in natural graphite
+determine boron contamination in natural graphite: nuclear grade is 5ppm
 
 which boron \% to use
 
