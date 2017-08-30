@@ -240,6 +240,7 @@ This process was repeated with boron impurites added (see fig~\ref{fig:neutronDi
 	\label{fig:neutronDiffLength}
 \end{figure}
 
+\newpage
 
 \subsection{Face measurement approach}
 
@@ -254,7 +255,47 @@ This process was repeated with boron impurites added (see fig~\ref{fig:neutronDi
 An alternative approach to determining the concentration of boron impurities was to measure the rate at different positions on the face of the graphite cube and compare with the simulated rate at the same positions. The positions measured and simulated can be seen in fig~\ref{fig:FaceImage}. The helium-3 tubes were surrounded with blocks of polyethylene to reduce the rate of neutrons bouncing back from the walls of the room.
 
 
-The ratio of the rate at each position to the rate at the centre position was compared to the same ratio in simulation for a range of boron contamination. To determine the best fit between data and simulation, a $\chi^2$ analysis was used.
+I noticed that the number of neutrons detected in each helium-3 tube was related to the number of neutrons which escape the graphite. This is shown in fig~\ref{fig:TubeRateVsEscape}. Each data vertial set of points is from a simulation sample with a different boron contamination. For each of the positions shown in fig~\ref{fig:FaceImage}, a least squares fit to a line was performed.
+
+
+\begin{figure}
+	\centerfloat
+	\includegraphics[width=\columnwidth]{images/TubeRateVsEscapeRate}
+	\caption{Helium-3 tube rate vs neutron escape rate for the nine different positions shown in fig~\ref{fig:FaceImage}, with linear fit.}	
+	\label{fig:TubeRateVsEscape}
+\end{figure}
+
+\begin{figure}
+	\centerfloat
+	\includegraphics[width=\columnwidth]{images/EscapeRateVsBoron}
+	\caption{Neutron escape rate vs boron concentration. Blue are from full simulation, green are interpolated points.}	
+	\label{fig:EscapeRate}
+\end{figure}
+
+
+
+Shown in fig~\ref{fig:EscapeRate} is the neutron escape rate vs boron contamination. Using the fits from fig~\ref{fig:TubeRateVsEscape}, I was able to calculate how many neutrons would be measured at each position for boron concentrations from 10$^{-5}$\% - 10$^{-2.5}$\%. The ratio of the rate in at each position to the rate at the centre position was taken for data and for simulation. For each boron concentration, a $\chi^2$ value was calculated for the difference between data and simulation. This is shown in fig~\ref{fig:ChiSq}. The minimum $\chi^2$ is at a boron concentration of 0.00177\% or 17.7~ppm, which is approximately five times the predicted concentration from the diffusion approach.
+
+
+\begin{figure}
+	\centerfloat
+	\includegraphics[width=\columnwidth]{images/ChiSqVsBoron}
+	\caption{$\chi^2$ of comparison between data and simulation vs boron concentration.}	
+	\label{fig:ChiSq}
+\end{figure}
+
+
+\section{TODO}
+
+determine how GEANT4 mixes: by weight, or by number
+
+determine boron contamination in natural graphite
+
+which boron \% to use
+
+
+
+%The ratio of the rate at each position to the rate at the centre position was compared to the same ratio in simulation for a range of boron contamination. To determine the best fit between data and simulation, a $\chi^2$ analysis was used.
 
 
 
